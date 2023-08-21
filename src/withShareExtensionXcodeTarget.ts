@@ -13,7 +13,8 @@ export const withShareExtensionXcodeTarget: ConfigPlugin = (config) => {
   return withXcodeProject(config, async (config) => {
     const extensionName = shareExtensionName;
     const platformProjectRoot = config.modRequest.platformProjectRoot;
-    const scheme = config.scheme!;
+    let scheme = config.scheme!;
+    if (Array.isArray(scheme)) scheme = scheme[0];
     const appIdentifier = config.ios?.bundleIdentifier!;
     const shareExtensionIdentifier = getShareExtensionBundledIdentifier(appIdentifier);
     const currentProjectVersion = config.ios!.buildNumber || '1';
